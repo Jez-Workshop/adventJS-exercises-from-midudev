@@ -4,7 +4,7 @@
 int main(int argc, char** argv) {
 
     if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <int>\n";
+        std::cerr << "No Args passed. Please pass a int nuber\n";
         return 1;
     }
 
