@@ -1,13 +1,8 @@
-# Makefile for managing C++ project in cpp-ex directory
+# Makefile for managing projects
 
+# Importing enviorment variables
 include .env
 export $(shell sed 's/=.*//' .env)
-
-# Directory variables
-# PROJECT_DIR := cpp-ex
-# BUILD_DIR := $(PROJECT_DIR)/build
-# BIN_NAME := adventCpp
-
 
 # CPP Commands
 
@@ -110,3 +105,6 @@ clean:
 
 compile:
 	$(MAKE) cpp_compile && $(MAKE) ts_compile
+
+run:
+	$(MAKE) cpp_run && $(MAKE) ts_run && $(MAKE) py_run
