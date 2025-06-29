@@ -1,0 +1,1 @@
+console.log('TypeSCript Setup is working perfectly!');
