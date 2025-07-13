@@ -1,1 +1,3 @@
-console.log('TypeSCript Setup is working perfectly!');
+import { main } from "./entry";
+
+main();
