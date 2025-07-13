@@ -1,1 +1,3 @@
-print('Python Setup is working perfectly!')
+from entry import main
+
+main()
