@@ -1,7 +1,8 @@
+import * as dotenv from "dotenv";
 import { ex_0, getFunc2Execute } from "./examples";
 
 export function main() {
-  if (process.argv.length < 3) {
+  if (process.argv.length < 4) {
     console.error(`No Number Args Passed`);
     process.exit(1);
   }
@@ -14,5 +15,6 @@ export function main() {
     process.exit(1);
   }
 
-  func();
+  dotenv.config({ path: "../.env" });
+  func( process.argv[3] );
 }
