@@ -2,7 +2,7 @@
 /node-ex/dist/
 /node-ex/node_modules/
 
-/advent
+/advent_py/
 
 /cpp-ex/build
 /cpp-ex/conan_build/
