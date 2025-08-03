@@ -65,8 +65,6 @@ ts_compile:
 	cd $(TS_ROOT_DIR) && npx tsc && cd ..
 	@echo "Code compiled successfully."
 
-
-
 ts_run:
 	@echo "Running the program..."
 	@if [ ! -d "$(TS_BUILD_DIR)" ]; then \
@@ -89,12 +87,39 @@ py_clean:
 	@echo "Cleaning __pycache__ folders under $(PY_ROOT_DIR)"
 	@echo "Cleaning python venv with name $(PY_VENV_NAME)"
 	@find $(PY_ROOT_DIR) -type d -name "__pycache__" -exec rm -rf {} +
-	@find $(PY_ROOT_DIR) -type d -name "${PY_VENV_NAME}" -exec rm -rf {} +
+	@find . -type d -name "${PY_VENV_NAME}" -exec rm -rf {} +
 	@echo "Done cleaning."
 
 py_create_venv:
 	@echo "Creating venv with name:${PY_VENV_NAME}..."
-	python3 -m venv ${PY_VENV_NAME}
+	python3 -m venv ${PY_VENV_NAME};
+	$(MAKE) py_pip_install;
+
+
+# Install packages from requirements.txt
+py_pip_install:
+	@if [ ! -d "${PY_VENV_NAME}" ]; then \
+		echo "❌ Virtual environment '${PY_VENV_NAME}' does not exist."; \
+		exit 1; \
+	fi
+	@if [ ! -f "requirements.txt" ]; then \
+		echo "❌ requirements.txt file not found."; \
+		exit 1; \
+	fi
+	@echo "✅ Installing packages from requirements.txt into venv '${PY_VENV_NAME}'..."
+	@. ${PY_VENV_NAME}/bin/activate && pip install -r requirements.txt
+	deactivate
+
+
+# Generate requirements.txt from venv
+py_gen_pip_list:
+	@if [ ! -d "${PY_VENV_NAME}" ]; then \
+		echo "❌ Virtual environment '${PY_VENV_NAME}' does not exist."; \
+		exit 1; \
+	fi
+	@echo "✅ Generating requirements.txt from venv '${PY_VENV_NAME}'..."
+	@. ${PY_VENV_NAME}/bin/activate && pip freeze > requirements.txt
+	deactivate
 
 py_run:
 	@echo "Running the program..."
@@ -104,6 +129,10 @@ py_run:
 	fi
 	@if [ ! -f "$(PY_ENTRY_FILE_PATH)" ]; then \
 		echo "Python File not found. Make sure your target is named '$(PY_ENTRY_FILE_PATH)'."; \
+		exit 1; \
+	fi
+	@if [ ! -d "$(PY_VENV_NAME)" ]; then \
+		echo "No Python venv found with name '$(PY_VENV_NAME)'. Please Launch command first: make py_create_venv"; \
 		exit 1; \
 	fi
 
