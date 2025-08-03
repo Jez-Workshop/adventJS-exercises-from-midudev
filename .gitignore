@@ -6,5 +6,6 @@
 
 /cpp-ex/build
 /cpp-ex/conan_build/
+/cpp-ex/third-libs/
 
 Chat-GPT.prompts.md
