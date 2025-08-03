@@ -1,10 +1,11 @@
 #pragma once
+#include <string>
 
-using adventExPtr = int(*)();
+#include "utils/globals.hpp"
 
 namespace ad_ex
 {
-    int ex_0();
-
-    adventExPtr getEx( int );
+    int ex_0( str );
+    int testJsonLib( str );
+    int testEnvFile( str );
 }

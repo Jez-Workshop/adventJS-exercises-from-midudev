@@ -1,10 +1,11 @@
 #include <iostream>
 
-#include "advent/adventEx.hpp"
+#include "utils/utils.hpp"
+#include "utils/globals.hpp"
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
+    if (argc < 3)
     {
         std::cerr << "No Args passed. Please pass a int nuber\n";
         return 1;
@@ -12,7 +13,7 @@ int main(int argc, char **argv)
 
     int value = std::atoi(argv[1]);
 
-    adventExPtr func = ad_ex::getEx(value);
+    adventExPtr func = ad_utils::getEx(value);
 
     if (func == nullptr)
     {
@@ -20,6 +21,6 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    func();
+    func( argv[2] );
     return 0;
 }
