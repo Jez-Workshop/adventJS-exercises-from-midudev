@@ -31,7 +31,7 @@ cpp_run:
 	@echo "Running the program..."
 	@if [ ! -d "$(CPP_BUILD_DIR)" ]; then \
 		echo "Build directory doesn't exist. Compiling first..."; \
-		$(MAKE) compile; \
+		$(MAKE) cpp_compile; \
 	fi
 	@if [ ! -f "$(CPP_BUILD_DIR)/$(CPP_BIN_NAME)" ]; then \
 		echo "Binary not found. Make sure your target is named '$(CPP_BIN_NAME)'."; \
@@ -54,12 +54,22 @@ ts_clean:
 	else \
 		echo "No build directory to remove."; \
 	fi
+	@if [ -d "$(TS_ROOT_DIR)/" ]; then \
+		echo "Removing $(TS_ROOT_DIR)/node_modules..."; \
+		rm -rf $(TS_ROOT_DIR)/node_modules; \
+	else \
+		echo "No build directory to remove."; \
+	fi
 
 ts_install:
 	@echo "Installing Packages ..."
 	cd $(TS_ROOT_DIR) && npm install && cd ..
 
 ts_compile:
+	@if [ ! -d "${TS_ROOT_DIR}/node_modules" ]; then \
+		echo "❌ Node Modules not Installing on folder '${TS_ROOT_DIR}'"; \
+		$(MAKE) ts_install; \
+	fi
 	@echo "Compiling the code..."
 	mkdir -p $(TS_BUILD_DIR)
 	cd $(TS_ROOT_DIR) && npx tsc && cd ..
@@ -92,7 +102,7 @@ py_clean:
 
 py_create_venv:
 	@echo "Creating venv with name:${PY_VENV_NAME}..."
-	python3 -m venv ${PY_VENV_NAME};
+	python3 -m venv ${PY_VENV_NAME}; \
 	$(MAKE) py_pip_install;
 
 
@@ -107,7 +117,7 @@ py_pip_install:
 		exit 1; \
 	fi
 	@echo "✅ Installing packages from requirements.txt into venv '${PY_VENV_NAME}'..."
-	@. ${PY_VENV_NAME}/bin/activate && pip install -r requirements.txt
+	@. ${PY_VENV_NAME}/bin/activate && pip install -r requirements.txt; \
 	deactivate
 
 
@@ -140,13 +150,6 @@ py_run:
 	@${PY_VENV_NAME}/bin/python3 ${PY_ENTRY_FILE_PATH} ${A} ${B}
 
 
-# ALL
-
-clean:
-	$(MAKE) cpp_clean && $(MAKE) ts_clean
-
-compile:
-	$(MAKE) cpp_compile && $(MAKE) ts_compile
-
-run:
-	$(MAKE) cpp_run && $(MAKE) ts_run && $(MAKE) py_run
+all_clean:
+	@echo "All Cleaning..."
+	$(MAKE) py_clean && $(MAKE) ts_clean && $(MAKE) cpp_clean;
