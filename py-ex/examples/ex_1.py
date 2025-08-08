@@ -1,8 +1,8 @@
 from helpers.shared import getJsonPath, getDataFromKey, jsonObject2IntVector
 
-def ex_0( key: str ):
+def ex_1( key: str ):
     
-    jsonPath = getJsonPath( 0 )
+    jsonPath = getJsonPath( 1 )
     jsonData = getDataFromKey( jsonPath, key )
     
     if jsonData == None:
@@ -17,5 +17,10 @@ def ex_0( key: str ):
         print(f'Fail Conversion Data')
         return
     
-    print( data )
-    print('Python Setup is working perfectly!')
+    gifts = prepare_gifts( data )    
+    print( gifts )
+
+    
+    
+def prepare_gifts(gifts: list[int]) -> list[int]:
+  return sorted( list( set( gifts ) ) )
