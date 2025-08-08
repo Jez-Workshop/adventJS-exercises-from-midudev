@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { ex_0, getFunc2Execute } from "./examples";
+import { getFunc2Execute } from './utils'
 
 export function main() {
   if (process.argv.length < 4) {

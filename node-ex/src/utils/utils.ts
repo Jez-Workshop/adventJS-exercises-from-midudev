@@ -1,18 +1,22 @@
 import { readFile } from "fs/promises";
-import { ex_0 } from "./ex_0";
+import { ex_0, ex_1 } from "../examples";
 
-type ExampleFunction = ( key:string ) => void;
+import { ExampleFunction, IntVect } from "./custom-alias";
+
+// type ExampleFunction = ( key:string ) => void;
 
 export function getFunc2Execute(value: number): ExampleFunction | null {
   switch (value) {
     case 0:
       return ex_0;
 
+    case 1:
+      return ex_1;
+
     default:
       return null;
   }
 }
-
 
 export function getJsonPath(number: number): string {
   const jsonFileName = `${process.env.JSON_DATA_PREFIX}${String(number)}.json`;
@@ -35,7 +39,7 @@ export async function getDataFromKey(path: string, key: string): Promise<any> {
   }
 }
 
-export function jsonObject2IntVector(data: any): number[] | null {
+export function jsonObject2IntVector(data: any): IntVect | null {
   if (!Array.isArray(data)) {
     console.error("Provided data is not an array");
     return null;
@@ -53,4 +57,24 @@ export function jsonObject2IntVector(data: any): number[] | null {
   }
 
   return result;
+}
+
+export class CustomNumberArray extends Array<number> {
+  constructor(...items: number[]) {
+    super(...items);
+
+    Object.setPrototypeOf(this, CustomNumberArray.prototype);
+  }
+
+  sortBy(type: "ascending" | "descending"): this {
+    return type === "ascending" ? this.sortAscending() : this.sortDescending();
+  }
+
+  protected sortAscending(): this {
+    return this.sort((a, b) => a - b);
+  }
+
+  protected sortDescending(): this {
+    return this.sort((a, b) => b - a);
+  }
 }

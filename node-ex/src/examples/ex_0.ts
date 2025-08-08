@@ -1,4 +1,4 @@
-import { getJsonPath, getDataFromKey, jsonObject2IntVector } from './utils'
+import { getJsonPath, getDataFromKey, jsonObject2IntVector } from '../utils'
 
 export async function ex_0(key: string) {
   
