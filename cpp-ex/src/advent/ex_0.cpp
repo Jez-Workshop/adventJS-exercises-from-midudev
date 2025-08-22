@@ -27,7 +27,7 @@ int ad_ex::ex_0(str key)
     }
 
     std::cout << "IntVect contents:\n[";
-    for (int val : data)
+    for (auto &val : data)
     {
         std::cout << val << " ";
     }
