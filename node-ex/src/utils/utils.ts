@@ -1,5 +1,5 @@
 import { readFile } from "fs/promises";
-import { ex_0, ex_1 } from "../examples";
+import { ex_0 } from "../examples";
 
 import { ExampleFunction, IntVect } from "./custom-alias";
 
@@ -9,9 +9,6 @@ export function getFunc2Execute(value: number): ExampleFunction | null {
   switch (value) {
     case 0:
       return ex_0;
-
-    case 1:
-      return ex_1;
 
     default:
       return null;

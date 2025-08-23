@@ -13,7 +13,6 @@ adventExPtr ad_utils::getEx( int exId ){
     switch (exId)
     {
     case 0: return ad_ex::ex_0;
-    case 1: return ad_ex::ex_1;
 
     case 999: return ad_ex::testJsonLib;
     case 998: return ad_ex::testEnvFile;

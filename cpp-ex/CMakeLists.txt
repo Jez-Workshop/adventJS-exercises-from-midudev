@@ -9,7 +9,6 @@ find_package(nlohmann_json REQUIRED)
 set(SOURCES
     src/main.cpp
     src/advent/ex_0.cpp
-    src/advent/ex_1.cpp
     src/advent/testJsonLib.cpp
     src/advent/testEnvFile.cpp
     src/utils/utils.cpp
